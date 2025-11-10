@@ -1,8 +1,5 @@
 #include <bits/stdc++.h>
 
-#include <limits>
-#include <type_traits>
-
 constexpr int U32_BITS  = std::numeric_limits<unsigned>::digits;
 constexpr int U64_BITS  = std::numeric_limits<unsigned long long>::digits;
 

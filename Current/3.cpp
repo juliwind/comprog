@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 using vi = vector<int>;
@@ -19,10 +20,16 @@ ll powe(ll x, ll y){ x = x%mod, y=y%(mod-1);ll ans = 1;while(y>0){if (y&1){ans =
 
 
 
-void solve(){
-	
-}
 
+
+
+
+
+
+
+void solve(){
+    
+}
 
 
 
@@ -31,7 +38,7 @@ signed main(){
     int t = 1;
     cin >> t;
     while(t--){
-    	solve();
+        solve();
     }
     return 0;
 }

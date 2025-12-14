@@ -5,6 +5,8 @@ using vii = vector<vector<int>>;
 using vl = vector<long long>;
 using vll = vector<vector<long long>>;
 using vc = vector<char>;
+using vpl = vector<pair<int, long long>>;
+using vvpl = vector<vector<pair<int, long long>>>;
 #define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 typedef long long ll;typedef long double ld;typedef pair<int,int> pii;
 #define F first

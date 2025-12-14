@@ -75,7 +75,7 @@ u64 pollard(u64 n){
             x = f_rho(x,c,n);
             y = f_rho(f_rho(y,c,n),c,n);
             u64 diff = x>y? x-y : y-x;
-            d = gcd(diff, n);
+            d = __gcd(diff, n);
         }
 
 

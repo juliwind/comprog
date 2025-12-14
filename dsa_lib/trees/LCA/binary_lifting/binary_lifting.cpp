@@ -14,7 +14,7 @@ typedef long long ll;typedef long double ld;typedef pair<int,int> pii;
 const ll mod = 1e9+7, N = 2e5+7, INF = INT_MAX;
 ll powe(ll x, ll y){ x = x%mod, y=y%(mod-1);ll ans = 1;while(y>0){if (y&1){ans = (1ll * x * ans)%mod;}y>>=1;x = (1ll * x * x)%mod;}return ans;}
 
-const int LOG = 20;
+const int LOG = 30;
 int up[N][LOG];
 int depth[N];
 vi adj[N];
@@ -71,6 +71,14 @@ bool on_path(int u, int v, int x) {
     int lca = get_lca(u, v);
     return (get_dist(lca, x) + get_dist(x, u) == get_dist(lca, u)) ||
            (get_dist(lca, x) + get_dist(x, v) == get_dist(lca, v));
+}
+
+// get kth node on path from u to v
+int get_kth_on_path(int u, int v, int k) {
+    int l = get_lca(u, v);
+    int d = depth[u] - depth[l];
+    if (k <= d) return kth_ancestor(u, k);
+    return kth_ancestor(v, get_dist(u, v) - k);
 }
 
 void solve(){

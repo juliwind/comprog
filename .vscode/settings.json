@@ -24,6 +24,7 @@
         "text_encoding": "cpp",
         "regex": "cpp",
         "valarray": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "random": "cpp"
     }
 }

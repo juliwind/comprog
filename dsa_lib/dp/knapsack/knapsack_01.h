@@ -56,8 +56,6 @@ struct Knapsack01 {
             int w = weights[i];
             T v = values[i];
             if (w == 0 || w >= MAX_W) continue; 
-
-            // Reverse order prevents using the same item multiple times for one sum
             for (int j = MAX_W - 1; j >= w; --j) {
                 if (dp[j - w] + v > dp[j]) {
                     dp[j] = dp[j - w] + v;
@@ -74,8 +72,6 @@ struct Knapsack01 {
             int w = weights[i];
             T v = values[i];
             if (w == 0 || w >= MAX_W) continue;
-
-            // Forward order allows reusing the item we just added
             for (int j = w; j < MAX_W; ++j) {
                 if (dp[j - w] + v > dp[j]) {
                     dp[j] = dp[j - w] + v;
@@ -84,7 +80,6 @@ struct Knapsack01 {
         }
     }
 
-    // Query: Max value for capacity 'k'
     T query(int k) const {
         if (k < 0) return 0;
         if (k >= MAX_W) return dp[MAX_W - 1];

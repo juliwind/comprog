@@ -66,18 +66,11 @@ struct BoundedKnapsack {
             int w = weights[i];
             T val = values[i];
             int c = counts[i];
-
-            // Optimizations
             if (w == 0 || w >= MAX_W) continue;
-
-            // Binary Decomposition (1, 2, 4...)
             for (int k = 1; c > 0; k <<= 1) {
                 int take = min(k, c);
                 int dw = w * take;
                 T dv = val * take;
-
-                // Standard 0/1 Knapsack Loop (Reverse)
-                // We go down to 'dw' because indices lower than that can't fit this item
                 for (int j = MAX_W - 1; j >= dw; --j) {
                     if (dp[j - dw] + dv > dp[j]) {
                         dp[j] = dp[j - dw] + dv;

@@ -1,21 +1,31 @@
+#ifndef AHO_CORASICK_H
+#define AHO_CORASICK_H
 
-#include <bits/stdc++.h>
-using namespace std;
-using vi = vector<int>;
-using vii = vector<vector<int>>;
-using vl = vector<long long>;
-using vll = vector<vector<long long>>;
-using vc = vector<char>;
-using vpl = vector<pair<int, long long>>;
-using vvpl = vector<vector<pair<int, long long>>>;
-#define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-typedef long long ll;typedef long double ld;typedef pair<int,int> pii;
-#define PB push_back
-#define all(a) (a).begin(), (a).end()
-const ll mod = 1e9+7, N = 2e6+7, M = 2e6+7, INF = INT_MAX/10;
-ll powe(ll x, ll y){ x = x%mod, y=y%(mod-1);ll ans = 1;while(y>0){if (y&1){ans = (1ll * x * ans)%mod;}y>>=1;x = (1ll * x * x)%mod;}return ans;}
+#include "template.h"
 
-
+/**
+ * Aho-Corasick Automaton
+ * * USAGE:
+ * // 1. Define solver
+ * // <Max Total Characters, Alphabet Size, Base Char>
+ * AhoCorasick<200005, 26, 'a'> ac;
+ * * void solve() {
+ * // 2. Insert patterns
+ * ac.insert("he");
+ * ac.insert("she");
+ * ac.insert("his");
+ * ac.insert("hers");
+ * * // 3. Build failure links & DFA
+ * ac.build();
+ * * // 4. Query
+ * cout << ac.query_total_occurrences("ushers") << endl; // Returns count of all matches
+ * * // 5. Access internal state for DP
+ * // ac.tr[u][c] gives the next state from u with char c
+ * }
+ * * * COMPLEXITY: 
+ * - Build: O(Sum of pattern lengths * Alphabet)
+ * - Query: O(Text length)
+ */
 template<int MAX_N, int ALPHA = 26, char MIN_CHAR = 'a'>
 struct AhoCorasick {
     int tr[MAX_N][ALPHA];
@@ -119,44 +129,37 @@ struct AhoCorasick {
     }
 };
 
+#endif
 
+/*
+Usage:
 
+void solve() {
+    int n;
+    cin >> n;
+    
+    // Note: MAX_N should be sum of lengths of all patterns + buffer
+    // Be mindful of stack size; define globally if MAX_N is large.
+    AhoCorasick<200005> ac; 
 
-AhoCorasick<N> ac;
-
-
-
-void solve(){
-    int n, k; cin >> n >> k;
-    for (int i = 0; i < k; ++i) {
-        string w; cin >> w;
-        ac.insert(w);
+    vector<string> patterns(n);
+    for(int i=0; i<n; ++i) {
+        cin >> patterns[i];
+        ac.insert(patterns[i], i); // Store index for identification
     }
+    
     ac.build();
-    vector<string> grid(n);
-    ll ans = 0;
-    for(int i = 0; i < n; ++i) {
-        cin >> grid[i];
-        ans += ac.query_total_occurrences(grid[i]);
+
+    string text;
+    cin >> text;
+
+    // 1. Total Occurrences
+    cout << "Total matches: " << ac.query_total_occurrences(text) << "\n";
+
+    // 2. Specific Pattern Counts
+    map<int, int> counts = ac.query_pattern_counts(text);
+    for(auto const& [id, count] : counts) {
+        cout << "Pattern " << patterns[id] << ": " << count << "\n";
     }
-    for(int i = 0; i < n; ++i) {
-        string col = "";
-        for(int j = 0; j < n; ++j) {
-            col += grid[j][i];
-        }
-        ans += ac.query_total_occurrences(col);
-    }
-    cout << ans << '\n';
 }
-
-
-
-signed main(){
-    fast;
-    int t = 1;
-    //cin >> t;
-    while(t--){
-        solve();
-    }
-    return 0;
-}
+*/

@@ -10,8 +10,6 @@ using vpl = vector<pair<int, long long>>;
 using vvpl = vector<vector<pair<int, long long>>>;
 #define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 typedef long long ll;typedef long double ld;typedef pair<int,int> pii;
-#define F first
-#define S second
 #define PB push_back
 #define all(a) (a).begin(), (a).end()
 const ll mod = 1e9+7, N = 2e6+7, M = 2e6+7, INF = INT_MAX/10;

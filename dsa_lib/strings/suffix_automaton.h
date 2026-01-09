@@ -1,22 +1,27 @@
+#ifndef SUFFIX_AUTOMATON_H
+#define SUFFIX_AUTOMATON_H
 
-#include <bits/stdc++.h>
-using namespace std;
-using vi = vector<int>;
-using vii = vector<vector<int>>;
-using vl = vector<long long>;
-using vll = vector<vector<long long>>;
-using vc = vector<char>;
-using vpl = vector<pair<int, long long>>;
-using vvpl = vector<vector<pair<int, long long>>>;
-#define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-typedef long long ll;typedef long double ld;typedef pair<int,int> pii;
-#define PB push_back
-#define all(a) (a).begin(), (a).end()
-const ll mod = 1e9+7, N = 2e6+7, M = 2e6+7, INF = INT_MAX/10;
-ll powe(ll x, ll y){ x = x%mod, y=y%(mod-1);ll ans = 1;while(y>0){if (y&1){ans = (1ll * x * ans)%mod;}y>>=1;x = (1ll * x * x)%mod;}return ans;}
+#include "template.h"
 
-
-
+/**
+ * Suffix Automaton (SAM) Structure
+ * * USAGE:
+ * // 1. Define SAM (Size must be > length of string)
+ * SuffixAutomaton<100005> sam;
+ * * * void solve() {
+ * // 2. Build
+ * sam.build(s);
+ * * // 3. Queries
+ * cout << sam.total_distinct_substrings() << endl;
+ * cout << sam.count_occurrences("pattern") << endl;
+ * cout << sam.longest_common_substring(other_string) << endl;
+ * }
+ * * * COMPLEXITY:
+ * Build: O(N) Time, O(N * Sigma) Memory
+ * distinct_substrings: O(N)
+ * count_occurrences: O(P) where P is pattern length
+ * longest_common_substring: O(M) where M is other string length
+ */
 template<int MAX_N, int ALPHABET = 26, char BASE_CHAR = 'a'>
 struct SuffixAutomaton {
     struct State {
@@ -236,48 +241,32 @@ struct SuffixAutomaton {
     }
 };
 
-SuffixAutomaton<200002> sam;
+#endif
 
-void solve(){
-    int k; cin >> k;
-    string s; cin >> s;
-    sam.build(s);
-    sam.propogate_counts();
-    int best_len = 0;
-    string best_str = "";
-    bool found = false;
-    for(int i = 1; i < sam.sz; ++i) {
-        if(sam.st[i].cnt >= k){
-            if(best_len < sam.st[i].len) {
-                best_len = sam.st[i].len;
-                best_str = s.substr(sam.st[i].first_pos - sam.st[i].len + 1, sam.st[i].len);
-                found=true;
-            }
-            else if(sam.st[i].len == best_len) {
-                string tmp = s.substr(sam.st[i].first_pos - sam.st[i].len + 1, sam.st[i].len);
-                if(tmp > best_str) {
-                    best_str = tmp;
-                }
-            }
-        }
-    }
+/*
+Usage Example:
 
-    if(!found || best_len == 0) {
-        cout << "impossible\n";
-    } else {
-        cout << best_len << "\n";
-        cout << best_str << "\n";
-    }
+void solve() {
+    string s, t;
+    cin >> s;
+    
+    // 1. Initialize
+    SuffixAutomaton<100005> sam(s); // MAX_N should be >= s.length()
+
+    // 2. Count distinct substrings
+    cout << "Distinct Substrings: " << sam.total_distinct_substrings() << endl;
+
+    // 3. Count occurrences of a specific pattern
+    // (Internally propagates counts on first call)
+    cin >> t;
+    cout << "Occurrences of " << t << ": " << sam.count_occurrences(t) << endl;
+
+    // 4. LCS with another string
+    string other; cin >> other;
+    cout << "LCS: " << sam.longest_common_substring(other) << endl;
+    
+    // 5. K-th lexicographical substring
+    long long k; cin >> k;
+    cout << "K-th substring: " << sam.get_kth_substring(k) << endl;
 }
-
-
-
-signed main(){
-    fast;
-    int t = 1;
-    //cin >> t;
-    while(t--){
-        solve();
-    }
-    return 0;
-}
+*/
